@@ -1,0 +1,26 @@
+<template name="paging-pagination">
+  <div class="pagination pagination-small">
+    <ul>
+      <li class="{{#unless firstPage}}disabled{{/unless}}">
+        <a href="#" data-page="0">&laquo;</a>
+      </li>
+      <li class="{{#unless firstPage}}disabled{{/unless}}">
+        <a href="#" data-page="{{prevPage}}">&lsaquo;</a>
+      </li>
+      {{#each pages}}
+        {{#with ...proxy .}}
+          <li class="{{#if active}}active{{/if}}">
+            <a href="#" data-page="{{page}}">{{number}}</a>
+          </li>
+        {{/with}}
+      {{/each}}
+      </span>
+      <li class="{{#unless lastPage}}disabled{{/unless}}">
+        <a href="#" data-page="{{nextPage}}">&rsaquo;</a>
+      </li>
+      <li class="{{#unless lastPage}}disabled{{/unless}}">
+        <a href="#" data-page="{{maxPageNumber}}">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+</template>

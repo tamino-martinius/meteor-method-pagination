@@ -1,0 +1,9 @@
+{
+   "name": "mehtod-pagination",
+   "description": "Paging with Meteor.methods as source",
+   "homepage": "https://github.com/Zaku-eu/meteor-method-pagination",
+   "author": "Tamino Martinius <dev@zaku.eu> (http://zaku.eu)",
+   "version": "0.1.0",
+   "git": "https://github.com/Zaku-eu/meteor-method-pagination.git",
+   "packages": {}
+}
