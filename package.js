@@ -3,7 +3,7 @@ Package.describe({
 });
  
 Package.on_use(function (api) {
-  api.use(['coffeescript'],['client','server']);
+  api.use(['coffeescript', 'underscore'],['client','server']);
   api.use(['handlebars', 'templating'],['client']);
   api.add_files(['client.html','client.coffee'],['client']);
   api.add_files('server.coffee',['server']);

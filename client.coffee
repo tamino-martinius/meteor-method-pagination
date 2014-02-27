@@ -1,25 +1,11 @@
-pagingId = 1
+collMethodPagination = new Meteor.Collection "methodPagination"
 
+Meteor.subscribe "methodPagination"
 
-#--- Type checking
-isFunction = (object) -> typeof object is "function"
-isNumber = (object) -> typeof object is "number"
-isString = (object) -> typeof object is "string"
-isArray = (object) -> Object::toString.call(object) is "[object Array]"
-
-extend = (target, elements...) ->
-  depth = 5
-  depth = elements.pop() if elements.length > 0 and isNumber(elements[elements.length - 1])
-  target ||= {}
-  if depth > 0
-    for src in elements
-      for srcKey, srcVal of src
-        if typeof srcVal is "object" and srcVal? and not srcVal.length?
-          target[srcKey] ||= {}
-          @extend target[srcKey], srcVal, depth - 1
-        else
-          target[srcKey] = srcVal
-  target
+collMethodPagination.allow
+  insert: (userId, item) -> false
+  update: (userId, item, fields, modifier) -> false
+  remove: (userId, item) -> false
 
 Template["paging-pagination"].events
   "click a[data-page]": (e) ->
@@ -30,25 +16,40 @@ Template["paging-pagination"].events
       @update()
     false
 
+observer = null
+
 class @Paging
   constructor: (options) ->
     pg = @
     defaults =
-      id: "paging-#{pagingId++}"
+      id: "paging-#{(new Meteor.Collection.ObjectID)._str}"
       items: []
       pageSize: 20
       pageNumber: 0
+      autoUpdate: true
       totalRecords: 0
       params: {}
       pageNumber: 0
       method: "PLEASE ADD METHOD PARAM!"
       pass: 0
-    extend @, defaults, options
+    _.extend @, defaults, options
     for key, template of @templates
-      @templates[key] = Template[template] if isString template
+      @templates[key] = Template[template] if _.isString template
     @update()
-    console.log @
     Session.set pg.id, @pass
+    observer.stop() if observer?
+    observer = collMethodPagination.find({pagingId: @id}).observe
+      "added": (changes) ->
+        if pg.autoUpdate
+          pg.update()
+        if changes.itemId?
+          if changes.fields?
+            pg.itemChanged(changes.itemId, changes.fields) if pg.itemChanged?
+          else
+            pg.itemDeleted(changes.itemId) if pg.itemDeleted?
+        else
+          pg.itemAdded() if pg.itemAdded?
+    return
   setPages: () ->
     @maxPageNumber = Math.ceil(@totalRecords / @pageSize) - 1
     @nextPage = @pageNumber + 1
