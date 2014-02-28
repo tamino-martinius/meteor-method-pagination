@@ -73,6 +73,7 @@ class @Paging
       else
         pg.items = res.items
         pg.totalRecords = res.totalRecords
+        pg.filteredRecords = res.filteredRecords
         pg.setPages()
         Session.set pg.id, ++pg.pass
   render: (tmpl) ->
