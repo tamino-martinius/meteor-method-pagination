@@ -1,0 +1,29 @@
+.pagination.sort
+  position relative
+  > div:first-child
+    margin-right 10px
+  > div:last-child
+    right 0
+    top 0
+    position absolute
+    width 10px
+    height 20px
+    > div
+      width 0
+      height 0
+      cursor pointer
+      border 5px solid rgba(#000, .3)
+      border-right-color transparent !important
+      border-left-color transparent !important
+      &:hover
+        border 5px solid rgba(#000, .5)
+      &.active
+        border 5px solid rgba(#000, .7)
+        &:hover
+          border 5px solid rgba(#000, .9)
+      &.asc
+        border-top-color transparent !important
+        margin-top -2px
+        margin-bottom 4px
+      &.desc
+        border-bottom-color transparent !important
