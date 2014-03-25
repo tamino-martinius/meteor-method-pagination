@@ -24,3 +24,15 @@
     </ul>
   </div>
 </template>
+
+<template name="paging-sort">
+  <div class="pagination sort">
+    <div>
+      {{title}}
+    </div>
+    <div>
+      <div class="asc {{#if sortAsc}}active{{/if}}"></div>
+      <div class="desc {{#if sortDesc}}active{{/if}}"></div>
+    </div>
+  </div>
+</template>

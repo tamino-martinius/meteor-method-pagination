@@ -14,6 +14,7 @@ observerDuration = 30*60*1000 # 30 minutes
       delete observers[pagingId]
   filterQuery = deepExtend {}, query, filter, 10
   userId = Meteor.userId()
+  options.sort = pageSettings.sort if not options.sort?
   options.skip = pageSettings.pageNumber * pageSettings.pageSize
   options.limit = pageSettings.pageSize
   items = collection.find(filterQuery, options).fetch()

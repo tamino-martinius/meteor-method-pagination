@@ -16,6 +16,22 @@ Template["paging-pagination"].events
       @update()
     false
 
+Template["paging-sort"].events
+  "click .asc": (e) ->
+    e.preventDefault()
+    if not @sort[@sortExp] is 1
+      @sort = {}
+      @sort[@sortExp] = 1
+      @update()
+    false
+  "click .desc": (e) ->
+    e.preventDefault()
+    if not @sort[@sortExp] is -1
+      @sort = {}
+      @sort[@sortExp] = -1
+      @update()
+    false
+
 observer = null
 
 class @Paging
@@ -29,6 +45,8 @@ class @Paging
       autoUpdate: true
       totalRecords: 0
       params: {}
+      sort:
+        "_id": 1
       pageNumber: 0
       method: "PLEASE ADD METHOD PARAM!"
       pass: 0
@@ -64,6 +82,16 @@ class @Paging
     @number = number + 1
     @page = number
     @active = @pageNumber is number
+    @
+  sortFor: (title, sortExp) ->
+    @title = title
+    @sortExp = sortExp
+    @sortAsc = false
+    @sortDesc = false
+    for key, value of @sort
+      if key is @sortExp
+        @sortAsc = true if value is 1
+        @sortDesc = true if value is -1
     @
   update: () ->
     pg = @
