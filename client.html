@@ -1,38 +1,37 @@
-<template name="paging-pagination">
+<template name="paging_pagination">
   <div class="pagination pagination-small">
     <ul>
-      <li class="{{#unless firstPage}}disabled{{/unless}}">
+      <li class="{{disabledClass firstPage}}">
         <a href="#" data-page="0">&laquo;</a>
       </li>
-      <li class="{{#unless firstPage}}disabled{{/unless}}">
+      <li class="{{disabledClass firstPage}}">
         <a href="#" data-page="{{prevPage}}">&lsaquo;</a>
       </li>
       {{#each pages}}
-        {{#with ...proxy .}}
-          <li class="{{#if active}}active{{/if}}">
+        {{#with ../proxy .}}
+          <li class="{{activeClass active}}">
             <a href="#" data-page="{{page}}">{{number}}</a>
           </li>
         {{/with}}
       {{/each}}
-      </span>
-      <li class="{{#unless lastPage}}disabled{{/unless}}">
+      <li class="{{disabledClass lastPage}}">
         <a href="#" data-page="{{nextPage}}">&rsaquo;</a>
       </li>
-      <li class="{{#unless lastPage}}disabled{{/unless}}">
+      <li class="{{disabledClass lastPage}}">
         <a href="#" data-page="{{maxPageNumber}}">&raquo;</a>
       </li>
     </ul>
   </div>
 </template>
 
-<template name="paging-sort">
+<template name="paging_sort">
   <div class="pagination sort">
     <div>
       {{title}}
     </div>
     <div>
-      <div class="asc {{#if sortAsc}}active{{/if}}"></div>
-      <div class="desc {{#if sortDesc}}active{{/if}}"></div>
+      <div class="asc {{sortAscClass}}"></div>
+      <div class="desc {{sortDescClass}}"></div>
     </div>
   </div>
 </template>

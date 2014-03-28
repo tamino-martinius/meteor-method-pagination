@@ -49,7 +49,7 @@ Handlebars
       {{#each items}}
         
       {{/each}}
-    {{> paging-pagination}}
+    {{> paging_pagination}}
   {{else}}
     No Data
   {{/paging}}

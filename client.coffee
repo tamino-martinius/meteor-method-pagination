@@ -7,7 +7,7 @@ collMethodPagination.allow
   update: (userId, item, fields, modifier) -> false
   remove: (userId, item) -> false
 
-Template["paging-pagination"].events
+Template["paging_pagination"].events
   "click a[data-page]": (e) ->
     e.preventDefault()
     pageNumber = e.target.dataset.page * 1
@@ -16,7 +16,19 @@ Template["paging-pagination"].events
       @update()
     false
 
-Template["paging-sort"].events
+Template["paging_pagination"].helpers
+  "disabledClass": (trigger) ->
+    if trigger
+      ""
+    else
+      "disabled"
+  "activeClass": (trigger) ->
+    if trigger
+      "active"
+    else
+      ""
+
+Template["paging_sort"].events
   "click .asc": (e) ->
     e.preventDefault()
     if not @sort[@sortExp] is 1
@@ -31,6 +43,18 @@ Template["paging-sort"].events
       @sort[@sortExp] = -1
       @update()
     false
+
+Template["paging_sort"].helpers
+  "sortAscClass": ->
+    if @sortAsc
+      "active"
+    else
+      ""
+  "sortDescClass": ->
+    if @sortDesc
+      "active"
+    else
+      ""
 
 observer = null
 
