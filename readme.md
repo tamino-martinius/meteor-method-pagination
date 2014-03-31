@@ -36,15 +36,14 @@ Template["name"].created = () ->
     pageSize: 5
 
 Template["name"].helpers
-  paging: (options) ->
-    paging.render(options.fn)
+  ctx: -> paging
 ```
 
-Handlebars
+Spacebars
 
 ```
 <template name="recordList">
-  {{#paging}}
+  {{#paging context=ctx}}
     {{#if items}}
       {{#each items}}
         

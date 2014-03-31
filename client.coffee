@@ -128,6 +128,7 @@ class @Paging
         pg.filteredRecords = res.filteredRecords
         pg.setPages()
         Session.set pg.id, ++pg.pass
-  render: (tmpl) ->
-    Session.get @id
-    tmpl @
+
+Template["paging"].helpers
+  "reloadTrigger": ->
+    Session.get @context.id

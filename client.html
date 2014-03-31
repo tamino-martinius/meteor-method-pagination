@@ -35,3 +35,9 @@
     </div>
   </div>
 </template>
+
+<template name="paging">
+  {{#if reloadTrigger}}
+    {{> UI.contentBlock context}}
+  {{/if}}
+</template>
